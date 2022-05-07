@@ -17,7 +17,7 @@ function Login() {
     return (
         <Main>
             <h1>MyWallet</h1>
-            <forms onSubmit={sendInputData(e)} >
+            <forms onSubmit={(e) => sendInputData(e)} >
                 <input
                     type="eemail"
                     placeholder="E-mail"

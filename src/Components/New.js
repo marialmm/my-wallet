@@ -18,7 +18,7 @@ function New(){
     return(
         <Main>
             <h1>Nova {type}</h1>
-                <forms onSubmit={sendInputData(e)} >
+                <forms onSubmit={(e) => sendInputData(e)} >
                     <input type="number" placeholder="valor" value={newEntry.value} onChange={(e) => setNewEntry({...newEntry, value:e.target.value})} />
                     <input type="text" placeholder="Descrição" value={newEntry.description} onChange={(e) => setNewEntry({...newEntry, description:e.target.value})} />
                     <button type="submit">Salvar {type}</button>
