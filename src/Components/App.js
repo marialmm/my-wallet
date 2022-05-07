@@ -4,7 +4,7 @@ import Home from "./Home";
 import Login from "./Login";
 import New from "./New";
 import SignUp from "./SignUp";
-import GlobalStyle from "./../assets/globalStyle/globalStyle";
+import GlobalStyle from "./../Assets/globalStyle/globalStyle";
 
 function App(){
     <>
