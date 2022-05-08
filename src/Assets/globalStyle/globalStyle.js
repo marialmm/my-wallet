@@ -50,6 +50,43 @@ const GlobalStyle = createGlobalStyle`
         border-spacing: 0;
     }
     
+    /*Global Styles  */
+    :root {
+        --dark-purple: #8C11BE;
+        --ligth-purple: #A328D6;
+        --red: #C70000;
+        --green: #03AC00;
+        --gray: #C6C6C6;
+    }
+
+    *{
+        box-sizing: border-box;
+        font-family: 'Raleway', sans-serif;
+
+    }
+
+    body{
+        background-color: var(--dark-purple);
+    }
+
+    input{
+        width: 100%;
+        height: 58px;
+        padding: 18px 15px;
+        border-radius: 5px;
+        border: none;
+        color: #000000;
+        font-size: 20px;
+        margin-bottom: 13px;
+    }
+
+    a {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18px;
+    }
 `;
 
 export default GlobalStyle;

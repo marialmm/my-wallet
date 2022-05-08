@@ -9,6 +9,8 @@ function Login() {
         password: "",
     });
 
+    console.log(user);
+
     function sendInputData(e){
         e.preventDefault();
         console.log(user);
@@ -17,7 +19,9 @@ function Login() {
     return (
         <Main>
             <h1>MyWallet</h1>
-            <forms onSubmit={(e) => sendInputData(e)} >
+            <form
+            onSubmit={(e) => sendInputData(e)}
+            >
                 <input
                     type="eemail"
                     placeholder="E-mail"
@@ -35,12 +39,44 @@ function Login() {
                     }
                 />
                 <button type="submit">Entrar</button>
-            </forms>
+            </form>
 
             <Link to="SingUp">Primeira Vez? Cadastre-se</Link>
         </Main>
     );
 }
 
-const Main = styled.main``;
+const Main = styled.main`
+    padding: 0px 25px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        font-family: "Saira Stencil One", cursive;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 50px;
+        margin: 160px 0px 24px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    button {
+        background-color: var(--ligth-purple);
+        border: none;
+        width: 100%;
+        height: 46px;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 36px;
+    }
+`;
 export default Login;
