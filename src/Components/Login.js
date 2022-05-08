@@ -4,12 +4,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
-    const { user, setUser } = useState({
+    const [ user, setUser ] = useState({
         email: "",
         password: "",
     });
-
-    console.log(user);
 
     function sendInputData(e){
         e.preventDefault();
@@ -23,12 +21,13 @@ function Login() {
             onSubmit={(e) => sendInputData(e)}
             >
                 <input
-                    type="eemail"
+                    type="email"
                     placeholder="E-mail"
                     value={user.email}
                     onChange={(e) =>
                         setUser({ ...user, email: e.target.value })
                     }
+                    required
                 />
                 <input
                     type="password"
@@ -37,6 +36,7 @@ function Login() {
                     onChange={(e) =>
                         setUser({ ...user, password: e.target.value })
                     }
+                    required
                 />
                 <button type="submit">Entrar</button>
             </form>
