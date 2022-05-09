@@ -45,13 +45,6 @@ const Main = styled.main`
         height: 78px;
     }
 
-    aside h1{
-        font-weight: 700;
-        font-size: 26px;
-        line-height: 31px;
-        color: #FFFFFF;
-    }
-
     aside svg{
         font-size: 25px;
     }

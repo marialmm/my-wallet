@@ -106,6 +106,13 @@ const GlobalStyle = createGlobalStyle`
         font-size: 20px;
         margin-bottom: 36px;
     }
+
+    h1{
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 31px;
+        color: #FFFFFF;
+    }
 `;
 
 export default GlobalStyle;
