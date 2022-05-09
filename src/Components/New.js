@@ -62,6 +62,8 @@ const Main = styled.main`
 
     form {
         margin-top: 40px;
+        display: flex;
+        flex-direction: column;
     }
 `;
 

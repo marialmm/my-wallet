@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
-    const [ user, setUser ] = useState({
+    const [ userLogin, setUserLogin ] = useState({
         email: "",
         password: "",
     });
@@ -13,8 +13,16 @@ function Login() {
 
     function sendInputData(e){
         e.preventDefault();
-        console.log(user);
-        navigate("/home");
+        const promise = axios.post("http://localhost:5000/login", userLogin);
+        promise.then((res)=>{
+            const token = res.data;
+            localStorage.setItem("token", token);
+            navigate("/home");
+        });
+        promise.catch((err) => {
+            console.log(`${err.response.status} - ${err.response.statusText}`);
+            alert("Um erro aconteceu, tente novamente");
+        });
     }
 
     return (
@@ -26,18 +34,18 @@ function Login() {
                 <input
                     type="email"
                     placeholder="E-mail"
-                    value={user.email}
+                    value={userLogin.email}
                     onChange={(e) =>
-                        setUser({ ...user, email: e.target.value })
+                        setUserLogin({ ...userLogin, email: e.target.value })
                     }
                     required
                 />
                 <input
                     type="password"
                     placeholder="Senha"
-                    value={user.password}
+                    value={userLogin.password}
                     onChange={(e) =>
-                        setUser({ ...user, password: e.target.value })
+                        setUserLogin({ ...userLogin, password: e.target.value })
                     }
                     required
                 />

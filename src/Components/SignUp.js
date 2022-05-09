@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function SignUp() {
-    const [ user, setUser ] = useState({
+    const [newUser, setNewUser] = useState({
         name: "",
         email: "",
         password: "",
@@ -13,53 +13,63 @@ function SignUp() {
 
     const navigate = useNavigate();
 
-    function sendUser(e){
-        console.log("Enviando")
+    function sendUser(e) {
         e.preventDefault();
-        if(user.password !== user.confirmPassword){
-            console.log("Senhas diferentes!");
-            setUser({...user, password: "", confirmPassword: ""});
+        if (newUser.password !== newUser.confirmPassword) {
+            alert("Senhas diferentes!");
+            setNewUser({ ...newUser, password: "", confirmPassword: "" });
             return;
         }
-        console.log(user);
-        navigate("/")
+        delete newUser.confirmPassword;
+        const promise = axios.post("http://localhost:5000/sign-up", newUser);
+        promise.then(() => {
+            navigate("/");
+        });
+        promise.catch((err) => {
+            console.log(`${err.response.status} - ${err.response.statusText}`);
+            alert("Um erro aconteceu, tente novamente");
+        });
     }
 
     return (
         <Main>
             <h1>MyWallet</h1>
-            <form onSubmit={(e) => {sendUser(e)}}>
+            <form
+                onSubmit={(e) => {
+                    sendUser(e);
+                }}
+            >
                 <input
                     type="text"
                     placeholder="Nome"
-                    value={user.name}
-                    onChange={(e) => setUser({ ...user, name: e.target.value })}
+                    value={newUser.name}
+                    onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
                     required
                 />
                 <input
                     type="email"
                     placeholder="Email"
-                    value={user.email}
+                    value={newUser.email}
                     onChange={(e) =>
-                        setUser({ ...user, email: e.target.value })
+                        setNewUser({ ...newUser, email: e.target.value })
                     }
                     required
                 />
                 <input
                     type="password"
                     placeholder="Senha"
-                    value={user.password}
+                    value={newUser.password}
                     onChange={(e) =>
-                        setUser({ ...user, password: e.target.value })
+                        setNewUser({ ...newUser, password: e.target.value })
                     }
                     required
                 />
                 <input
                     type="password"
                     placeholder="Confirme a senha"
-                    value={user.confirmPassword}
+                    value={newUser.confirmPassword}
                     onChange={(e) =>
-                        setUser({ ...user, confirmPassword: e.target.value })
+                        setNewUser({ ...newUser, confirmPassword: e.target.value })
                     }
                     required
                 />
