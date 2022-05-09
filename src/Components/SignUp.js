@@ -22,6 +22,7 @@ function SignUp() {
             return;
         }
         console.log(user);
+        navigate("/")
     }
 
     return (
@@ -64,14 +65,12 @@ function SignUp() {
                 />
                 <button type="submit">Cadastrar</button>
             </form>
-            <Link to="/Login">Já tem uma conta? Entre agora!</Link>
+            <Link to="/">Já tem uma conta? Entre agora!</Link>
         </Main>
     );
 }
 
 const Main = styled.main`
-    padding: 0px 25px;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,7 +80,7 @@ const Main = styled.main`
         color: #ffffff;
         font-size: 32px;
         line-height: 50px;
-        margin: 160px 0px 24px;
+        margin: 95px 0px 24px;
     }
 
     form {

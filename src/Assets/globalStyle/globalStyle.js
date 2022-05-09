@@ -54,9 +54,10 @@ const GlobalStyle = createGlobalStyle`
     :root {
         --dark-purple: #8C11BE;
         --ligth-purple: #A328D6;
-        --red: #C70000;
-        --green: #03AC00;
-        --gray: #C6C6C6;
+        --expense: #C70000;
+        --income: #03AC00;
+        --ligth-grey: #C6C6C6;
+        --grey: #868686;
     }
 
     *{
@@ -69,8 +70,13 @@ const GlobalStyle = createGlobalStyle`
         background-color: var(--dark-purple);
     }
 
+    main{
+        padding: 0px 25px 16px;
+    }
+
     input{
         width: 100%;
+        max-width: 470px;
         height: 58px;
         padding: 18px 15px;
         border-radius: 5px;
@@ -86,6 +92,19 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 700;
         font-size: 15px;
         line-height: 18px;
+    }
+
+    button {
+        background-color: var(--ligth-purple);
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        max-width: 470px;
+        height: 46px;
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 36px;
     }
 `;
 

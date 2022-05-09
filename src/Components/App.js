@@ -7,8 +7,10 @@ import SignUp from "./SignUp";
 import GlobalStyle from "./../Assets/globalStyle/globalStyle";
 
 function App() {
+    console.log("App rodando!");
     return (
         <BrowserRouter>
+        <Link to="/sign-up">sign-up</Link>
             <GlobalStyle />
             <Routes>
                 <Route path="/" element={<Login />} />

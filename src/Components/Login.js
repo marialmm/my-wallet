@@ -1,6 +1,6 @@
 import axios from "axios";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
@@ -9,9 +9,12 @@ function Login() {
         password: "",
     });
 
+    const navigate = useNavigate();
+
     function sendInputData(e){
         e.preventDefault();
         console.log(user);
+        navigate("/home");
     }
 
     return (
@@ -41,14 +44,12 @@ function Login() {
                 <button type="submit">Entrar</button>
             </form>
 
-            <Link to="SingUp">Primeira Vez? Cadastre-se</Link>
+            <Link to="/sign-up">Primeira Vez? Cadastre-se</Link>
         </Main>
     );
 }
 
 const Main = styled.main`
-    padding: 0px 25px;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
