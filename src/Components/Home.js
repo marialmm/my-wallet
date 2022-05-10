@@ -9,6 +9,7 @@ import {
 import { useEffect, useContext, useState } from "react";
 
 import UserContext from "./../Assets/context/userContext";
+import Transaction from "./Transaction";
 
 function Home() {
     const token = localStorage.getItem("token");
@@ -17,14 +18,13 @@ function Home() {
     let total = 0;
 
     const navigate = useNavigate();
-
     
-    if (user.registry) {
-        user.registry.forEach((register) => {
-            if (register.type === "income") {
-                total += register.value;
-            } else if (register.type === "expense") {
-                total -= register.value;
+    if (user.transactions) {
+        user.transactions.forEach((transaction) => {
+            if (transaction.type === "income") {
+                total += transaction.value;
+            } else if (transaction.type === "expense") {
+                total -= transaction.value;
             }
         });
     }
@@ -33,7 +33,7 @@ function Home() {
         const config = {
             headers: { Authorization: `Bearer ${token}` },
         };
-        const promise = axios.get("http://localhost:5000/registry", config);
+        const promise = axios.get("http://localhost:5000/transactions", config);
         promise.then((res) => {
             setUser(res.data);
         });
@@ -52,25 +52,15 @@ function Home() {
                     <RiLogoutBoxRLine />
                 </Link>
             </aside>
-            {user.registry.length > 0 ? (
+            {user.transactions.length > 0 ? (
                 <section>
-                    {user.registry.map((register) => {
-                        return (
-                            <Container
-                                class={register.type}
-                                color={register.type}
-                            >
-                                <p>
-                                    <span>{register.date}</span>{" "}
-                                    {register.description}
-                                </p>
-                                <p class="value">{register.value}</p>
-                            </Container>
-                        );
-                    })}
-
+                    <div>
+                        {user.transactions.map((transaction) => {
+                            return <Transaction transaction={transaction} />
+                        })}
+                    </div>
                     <p>
-                        SALDO <span>{total}</span>
+                        SALDO <span>{total.toFixed(2)}</span>
                     </p>
                 </section>
             ) : (
@@ -146,6 +136,10 @@ const Main = styled.main`
         font-weight: 400;
     }
 
+    section > div{
+        flex-direction: column;
+    }
+
     div {
         display: flex;
         justify-content: space-between;
@@ -175,16 +169,6 @@ const Main = styled.main`
     div button p {
         width: 64px;
         text-align: initial;
-    }
-`;
-
-const Container = styled.div`
-    p span {
-        color: var(--ligth-grey);
-        margin-right: 5px;
-    }
-    p.value {
-        color: var(--${(props) => props.color});
     }
 `;
 

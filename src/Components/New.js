@@ -1,16 +1,19 @@
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
 
 function New() {
     const { type } = useParams();
-    const [newEntry, setNewEntry] = useState({
+    const [newTransaction, setNewTransaction] = useState({
         value: "",
         description: "",
         type: type,
     });
 
     const navigate = useNavigate();
+
+    const token = localStorage.getItem("token");
 
     let type_ptbr;
 
@@ -22,8 +25,19 @@ function New() {
 
     function sendInputData(e) {
         e.preventDefault();
-        console.log(newEntry);
-        navigate("/home");
+        const config = {
+            headers: { Authorization: `Bearer ${token}` },
+        };
+        const promise = axios.post("http://localhost:5000/transactions", newTransaction, config);
+        promise.then((res) => {
+            navigate("/home");
+            console.log(newTransaction);
+        });
+        promise.catch((err) => {
+            console.log(`${err.response.status} - ${err.response.statusText}`);
+            alert("Um erro aconteceu, tente novamente");
+            navigate("/");
+        });
     }
 
     return (
@@ -33,19 +47,19 @@ function New() {
                 <input
                     type="number"
                     placeholder="Valor"
-                    value={newEntry.value}
+                    value={newTransaction.value}
                     onChange={(e) =>
-                        setNewEntry({ ...newEntry, value: e.target.value })
+                        setNewTransaction({ ...newTransaction, value: parseInt(e.target.value) })
                     }
                     required
                 />
                 <input
                     type="text"
                     placeholder="Descrição"
-                    value={newEntry.description}
+                    value={newTransaction.description}
                     onChange={(e) =>
-                        setNewEntry({
-                            ...newEntry,
+                        setNewTransaction({
+                            ...newTransaction,
                             description: e.target.value,
                         })
                     }
