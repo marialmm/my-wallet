@@ -32,7 +32,9 @@ function Home() {
         });
     }
 
-    useEffect(() => {
+    useEffect(requestTransactions, []);
+
+    function requestTransactions(){
         const promise = axios.get("http://localhost:5000/transactions", config);
         promise.then((res) => {
             setUser(res.data);
@@ -40,9 +42,13 @@ function Home() {
         promise.catch((err) => {
             console.log(`${err.response.status} - ${err.response.statusText}`);
             alert("Um erro aconteceu, tente novamente");
-            navigate("/");
+            if(err.response.status === 401){
+                navigate("/");
+            } else{
+                logout();
+            }
         });
-    }, []);
+    }
 
     function logout(){
         const promise = axios.delete("http://localhost:5000/logout", config);
@@ -68,7 +74,7 @@ function Home() {
                 <section>
                     <div>
                         {user.transactions.map((transaction) => {
-                            return <Transaction transaction={transaction} />
+                            return <Transaction transaction={transaction} requestTransactions={requestTransactions} />
                         })}
                     </div>
                     <p>

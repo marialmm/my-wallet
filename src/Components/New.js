@@ -31,12 +31,11 @@ function New() {
         const promise = axios.post("http://localhost:5000/transactions", newTransaction, config);
         promise.then((res) => {
             navigate("/home");
-            console.log(newTransaction);
         });
         promise.catch((err) => {
             console.log(`${err.response.status} - ${err.response.statusText}`);
             alert("Um erro aconteceu, tente novamente");
-            navigate("/");
+            navigate("/home");
         });
     }
 
