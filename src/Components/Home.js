@@ -14,6 +14,9 @@ import Transaction from "./Transaction";
 function Home() {
     const token = localStorage.getItem("token");
     const { user, setUser } = useContext(UserContext);
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
 
     let total = 0;
 
@@ -30,9 +33,6 @@ function Home() {
     }
 
     useEffect(() => {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` },
-        };
         const promise = axios.get("http://localhost:5000/transactions", config);
         promise.then((res) => {
             setUser(res.data);
@@ -44,13 +44,25 @@ function Home() {
         });
     }, []);
 
+    function logout(){
+        const promise = axios.delete("http://localhost:5000/logout", config);
+        promise.then(res =>{
+            localStorage.removeItem("token");
+            setUser({});
+            navigate("/");
+        });
+        promise.catch((err) => {
+            console.log(`${err.response.status} - ${err.response.statusText}`);
+            alert("Um erro aconteceu, tente novamente");
+            navigate("/");
+        });
+    }
+
     return user.name ? (
         <Main color={total > 0 ? "income" : "expense"}>
             <aside>
                 <h1>Olá, {user.name}</h1>
-                <Link to="/">
-                    <RiLogoutBoxRLine />
-                </Link>
+                <RiLogoutBoxRLine onClick={logout} />
             </aside>
             {user.transactions.length > 0 ? (
                 <section>
@@ -99,6 +111,7 @@ const Main = styled.main`
 
     aside svg {
         font-size: 25px;
+        color: #FFFFFF;
     }
 
     section {
