@@ -3,8 +3,9 @@ import { useState } from "react";
 
 import Home from "./Home";
 import Login from "./Login";
-import New from "./New";
+import NewTransaction from "./NewTransaction";
 import SignUp from "./SignUp";
+import EditTransaction from "./EditTransaction";
 import GlobalStyle from "./../Assets/globalStyle/globalStyle";
 import UserContext from "./../Assets/context/userContext";
 
@@ -24,7 +25,8 @@ function App() {
                     <Route path="/" element={<Login />} />
                     <Route path="/sign-up" element={<SignUp />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/new/:type" element={<New />} />
+                    <Route path="/new/:type" element={<NewTransaction />} />
+                    <Route path="/edit/:idTransaction" element={<EditTransaction />} />
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>

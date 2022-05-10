@@ -11,7 +11,7 @@ function Transaction({ transaction, requestTransactions }) {
 
     function deleteTransaction() {
         const confirm = window.confirm(
-            `Deseja mesmo apagar a transação ${transaction.description}`
+            `Deseja mesmo apagar a transação ${transaction.description}?`
         );
         if (confirm) {
             const promise = axios.delete(
@@ -31,10 +31,17 @@ function Transaction({ transaction, requestTransactions }) {
         }
     }
 
+    function editTransaction() {
+        navigate(`/edit/${transaction.id}`);
+    }
+
     return (
         <Container color={transaction.type}>
             <p>
-                <span>{transaction.date}</span> {transaction.description}
+                <span>{transaction.date}</span>{" "}
+                <span onClick={editTransaction}>
+                    {transaction.description}
+                </span>
             </p>
             <p class="value">
                 {transaction.value.toFixed(2)}{" "}
@@ -45,7 +52,7 @@ function Transaction({ transaction, requestTransactions }) {
 }
 
 const Container = styled.div`
-    p span {
+    p span:first-child {
         color: var(--ligth-grey);
         margin-right: 5px;
     }
